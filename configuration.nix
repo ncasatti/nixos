@@ -8,15 +8,15 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-#			./modules/nvidia.nix
+      ./modules/nvidia.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-	boot.supportedFilesystems = ["ntfs"];
+  boot.supportedFilesystems = ["ntfs"];
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "ncasatti-work"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -67,7 +67,6 @@
 	hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = true;
   security.rtkit.enable = true;
@@ -85,9 +84,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-	
+  # services.xserver.libinput.enable = true;	
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ncasatti = {
@@ -96,7 +93,6 @@
     extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" "kvm"];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
     ];
   };
 
@@ -109,8 +105,8 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
-	services.sunshine = {
-    enable = true;
+  services.sunshine = {
+    enable = false;
     autoStart = true;
     capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
     openFirewall = true;
@@ -119,8 +115,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget 
 	environment.systemPackages = with pkgs; [
-	  #  wget
-
 		# Nix
 		home-manager
 
@@ -143,7 +137,7 @@
 		magic-wormhole
 		libsForQt5.kdeconnect-kde
 
-		geogebra
+		# geogebra
 
 		## Development
     # IDE
@@ -156,6 +150,7 @@
 
     # Utils
     docker-compose
+		gcc
 		
 		# Node
     nodejs_22
@@ -231,5 +226,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
